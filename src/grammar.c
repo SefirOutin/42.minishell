@@ -6,7 +6,7 @@
 /*   By: soutin <soutin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:13:51 by soutin            #+#    #+#             */
-/*   Updated: 2023/10/13 14:24:40 by soutin           ###   ########.fr       */
+/*   Updated: 2023/10/13 23:28:54 by soutin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,18 @@
 // 	}
 // }
 
-int	skip_wspaces(char *str)
+int	meta_after_meta(char *str, int *j, int *i)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] && ft_strchr(" \t\n\r\v", str[i]))
+	*j = *i;
+	while (ft_strchr("&|<>", str[*i]) && str[*i])
 		i++;
-	return (i);
+	skip_wspaces(str + *i, i);
+	// ft_printf("%c", str[i]);
+	if (ft_strchr("<>|", str[*i]) && ft_strchr("<>", str[*j]))
+		return (-1);
+	if (str[*i] == '|' && str[*j] == '|')
+		return (-1);
+	return (0);
 }
 
 int	parse(char *str)
@@ -44,25 +48,16 @@ int	parse(char *str)
 	int	i;
 	int	j;
 
-	// ft_printf("%sn\n", str);
-	i = skip_wspaces(str);
+	skip_wspaces(str, &i);
 	if (str[i] == '|')
 		return (-1);
 	while (str[i])
 	{
-		i += skip_wspaces(str + i);
-		// ft_printf("%c\n", str[i]);
+		skip_wspaces(str, &i);
 		if (str[i] && ft_strchr("<>|&", str[i]))
 		{
-			j = i;
-			while (ft_strchr("&|<>", str[i]) && str[i])
-				i++;
-			i += skip_wspaces(str + i);
-			// ft_printf("%c", str[i]);
-			if (ft_strchr("<>|", str[i]) && ft_strchr("<>", str[j]))
-				return (-1);
-			if (str[i] == '|' && str[j] == '|')
-				return (-1);
+			meta_after_meta(str, &j, &i);
+			return (-1);
 		}
 		else if (!ft_strchr(" \n\t\r\v", str[i]))
 		{

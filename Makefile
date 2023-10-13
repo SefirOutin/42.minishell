@@ -6,7 +6,7 @@
 #    By: soutin <soutin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/22 16:35:15 by soutin            #+#    #+#              #
-#    Updated: 2023/10/07 14:55:18 by soutin           ###   ########.fr        #
+#    Updated: 2023/10/13 16:31:41 by soutin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CFLAGS			=		-Wall -Werror -Werror -g3
 
 $(NAME):				$(OBJ)
 							$(MAKE) -C $(LIBFT_DIR)
-							cc $(CFLAGS) $(CPPFLAGS) $(OBJ) -o $(NAME) $(LIBFT)
+							cc $(CFLAGS) $(CPPFLAGS) -lreadline $(OBJ) -o $(NAME) $(LIBFT)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
