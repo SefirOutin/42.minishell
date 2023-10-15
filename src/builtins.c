@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: soutin <soutin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/15 17:56:54 by soutin            #+#    #+#             */
-/*   Updated: 2023/10/14 14:18:44 by soutin           ###   ########.fr       */
+/*   Created: 2023/10/14 19:56:04 by soutin            #+#    #+#             */
+/*   Updated: 2023/10/14 20:01:45 by soutin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/minishell.h"
 
-int	ft_lstadd_back(t_token **lst, t_token *new)
+int	pwd(void)
 {
-	if (!new)
-		return (-1);
-	if (*lst)
-		ft_lstlast(*lst)->next = new;
-	else
-		*lst = new;
+	char	*str;
+
+	str = getcwd(NULL, 0);
+	if (!str)
+		return (1);
+	printf("%s\n", str);
 	return (0);
 }

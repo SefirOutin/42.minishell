@@ -6,7 +6,7 @@
 /*   By: soutin <soutin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:13:51 by soutin            #+#    #+#             */
-/*   Updated: 2023/10/13 23:28:54 by soutin           ###   ########.fr       */
+/*   Updated: 2023/10/14 17:08:50 by soutin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@
 
 int	meta_after_meta(char *str, int *j, int *i)
 {
-	*j = *i;
 	while (ft_strchr("&|<>", str[*i]) && str[*i])
-		i++;
-	skip_wspaces(str + *i, i);
+		(*i)++;
+	skip_wspaces(str, i);
 	// ft_printf("%c", str[i]);
 	if (ft_strchr("<>|", str[*i]) && ft_strchr("<>", str[*j]))
 		return (-1);
@@ -48,23 +47,22 @@ int	parse(char *str)
 	int	i;
 	int	j;
 
+	i = 0;
 	skip_wspaces(str, &i);
 	if (str[i] == '|')
 		return (-1);
 	while (str[i])
 	{
 		skip_wspaces(str, &i);
+		j = i;
 		if (str[i] && ft_strchr("<>|&", str[i]))
 		{
-			meta_after_meta(str, &j, &i);
-			return (-1);
+			if (meta_after_meta(str, &j, &i) < 0)
+				return (-1);
 		}
 		else if (!ft_strchr(" \n\t\r\v", str[i]))
-		{
-			j = i;
 			while (!ft_strchr("&|<>() \n\t\r\v", str[i]) && str[i])
 				i++;
-		}
 		if (!str[i])
 			break;
 	}

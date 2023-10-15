@@ -6,7 +6,7 @@
 /*   By: soutin <soutin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:23:57 by soutin            #+#    #+#             */
-/*   Updated: 2023/10/13 23:47:13 by soutin           ###   ########.fr       */
+/*   Updated: 2023/10/14 20:03:38 by soutin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/include/libft.h"
+# include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdbool.h>
@@ -22,33 +23,32 @@
 
 typedef struct s_vars
 {
-	t_token	*tokens;
-	int		nb_cmds;
-	int		nb_sq;
-	int		nb_dq;
-	t_token	*commands;
-}			t_vars;
+	struct s_token	*tokens;
+	int				nb_cmds;
+}					t_vars;
 
-enum		e_token_type
+enum				e_token_type
 {
 	WORD,
-	LESS,
+	FILEPATH,
+	LIMITER,
+	RESERVEDW,
+	ENVVARIABLE,
 	GREAT,
 	GREATGREAT,
+	LESS,
 	LESSLESS,
-	AMPERSAND,
-	SEMILICON,
 	PIPE,
-	FILEPATH,
-	DOLLAR,
-	RESERVEDW,
-
+	ERRORLEVEL,
 };
 
-int			parse(char *str);
-int			word_until(char *str, char *sep, int *i);
-int			quotes_until(char *str, char *sep, int *i);
-int			tokenizer(t_vars *vars, char *str);
-void			skip_wspaces(char *str, int *i);
+t_vars				*_vars(void);
+int					parse(char *str);
+int					word_until(char *str, char *sep, int *i);
+int					quotes_until(char *str, char *sep, int *i);
+int					tokenizer(char *str);
+void				skip_wspaces(char *str, int *i);
+void				printlist(struct s_token **head);
+int	pwd(void);
 
 #endif

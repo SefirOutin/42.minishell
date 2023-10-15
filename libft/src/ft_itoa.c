@@ -6,7 +6,7 @@
 /*   By: soutin <soutin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 12:46:52 by soutin            #+#    #+#             */
-/*   Updated: 2023/06/15 14:44:13 by soutin           ###   ########.fr       */
+/*   Updated: 2023/10/14 14:20:18 by soutin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*ft_itoa(int n)
 
 	i = 0;
 	nbr = n;
-	str = malloc((nb_malloc(n) + 1) * sizeof(char));
+	str = ft_calloc((nb_malloc(n) + 1), sizeof(char));
 	if (!str)
 		return (NULL);
 	if (n < 0)

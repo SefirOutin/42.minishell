@@ -6,13 +6,14 @@
 /*   By: soutin <soutin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:52:51 by soutin            #+#    #+#             */
-/*   Updated: 2023/10/13 14:26:28 by soutin           ###   ########.fr       */
+/*   Updated: 2023/10/14 14:25:42 by soutin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "../../include/minishell.h"
 # include <bsd/string.h>
 # include <fcntl.h>
 # include <limits.h>
@@ -87,7 +88,7 @@ t_token				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_token **lst, t_token *new);
 int					ft_lstsize(t_token *lst);
 t_token				*ft_lstlast(t_token *lst);
-void				ft_lstadd_back(t_token **lst, t_token *new);
+int					ft_lstadd_back(t_token **lst, t_token *new);
 void				ft_lstdelone(t_token *lst, void (*del)(void *));
 void				ft_lstclear(t_token **lst, void (*del)(void *));
 void				ft_lstiter(t_token *lst, void (*f)(void *));
